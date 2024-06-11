@@ -1,5 +1,6 @@
 package com.example.uread.core.presentation.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
@@ -7,18 +8,17 @@ import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.dp
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Shelves(
+    shelves: MutableList<String>,
     selectedTab: Int,
     onTabSelected: (Int) -> Unit
 ) {
-    val shelves by remember { mutableStateOf(mutableListOf("All Books")) }
+
     ScrollableTabRow(
         selectedTabIndex = selectedTab,
         edgePadding = 16.dp
@@ -34,9 +34,19 @@ fun Shelves(
             icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "New Shelf") },
             selected = false,
             onClick = {
-                shelves.add("Shelf ${shelves.size + 1} ")
+                shelves.add("Shelf ${shelves.size} ")
                 onTabSelected(shelves.size - 1)
             }
         )
     }
+
+
+
+
+
+
+
+    
+
+    
 }
