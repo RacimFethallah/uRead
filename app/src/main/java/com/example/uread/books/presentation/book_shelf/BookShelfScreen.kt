@@ -6,5 +6,5 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun ShelfPageScreen(tabIndex: Int, modifier: Modifier = Modifier){
-    Text(text = "Shelf $tabIndex", modifier = modifier)
+//    Text(text = "Shelf $tabIndex", modifier = modifier)
 }
