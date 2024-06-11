@@ -31,7 +31,7 @@ fun Shelves(
             )
         }
         Tab(
-            icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "New shelf") },
+            icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = "New Shelf") },
             selected = false,
             onClick = {
                 shelves.add("Shelf ${shelves.size + 1} ")
