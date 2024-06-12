@@ -6,6 +6,7 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
@@ -44,13 +46,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.uread.books.presentation.book_shelf.ShelfPageScreen
 import com.example.uread.core.presentation.components.Shelves
+import com.example.uread.util.Navigation
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController) {
 
     var selectedTab by remember { mutableIntStateOf(0) }
     val shelves = remember { mutableStateListOf("All Books") }
@@ -59,7 +63,7 @@ fun HomeScreen() {
     }
 
 
-    var isExpanded by rememberSaveable { mutableStateOf(false) }
+    var isExpanded by remember { mutableStateOf(false) }
 
     val backgroundColor by animateColorAsState(
         if (isExpanded) Color.Black.copy(alpha = 0.6f) else Color.Transparent, label = ""
@@ -109,7 +113,7 @@ fun HomeScreen() {
                             FilledTonalButton(
                                 contentPadding = PaddingValues(8.dp),
                                 shape = RoundedCornerShape(12.dp),
-                                onClick = { /*TODO*/ }) {
+                                onClick = { navController.navigate("search_book_ol_screen") }) {
                                 Text("Search in Open Library")
                             }
 
@@ -121,7 +125,7 @@ fun HomeScreen() {
                                         contentDescription = "Add 1"
                                     )
                                 },
-                                onClick = { /* Handle click */ },
+                                onClick = { navController.navigate(Navigation.SearchBookOLScreen.route) },
                             )
                         }
                         Spacer(modifier = Modifier.height(5.dp))
@@ -170,41 +174,17 @@ fun HomeScreen() {
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier
+//                    .fillMaxSize()
                     .fillMaxWidth()
                     .weight(1f)
+                    .background(color = MaterialTheme.colorScheme.background )
+
             ) { index ->
                 ShelfPageScreen(index)
             }
 
 
+
         }
     }
 }
-
-
-//if(isSheetOpen){
-//    ModalBottomSheet(
-//        sheetState = sheetState,
-//        onDismissRequest = {
-//            isSheetOpen = false
-//        }
-//    ) {
-//        Button(
-//            onClick = { /* Handle Add by Search */ },
-//            colors = ButtonDefaults.buttonColors( Color.Blue),
-//            shape = RoundedCornerShape(8.dp),
-//            modifier = Modifier.padding(16.dp)
-//        ) {
-//            Text("Add by Search", color = Color.White)
-//        }
-//        Spacer(modifier = Modifier.height(8.dp))
-//        Button(
-//            onClick = { /* Handle Manual Add */ },
-//            colors = ButtonDefaults.buttonColors(Color.Green),
-//            shape = RoundedCornerShape(8.dp),
-//            modifier = Modifier.padding(16.dp)
-//        ) {
-//            Text("Manual Add", color = Color.White)
-//        }
-//    }
-//}
